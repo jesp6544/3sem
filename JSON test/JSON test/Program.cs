@@ -12,27 +12,25 @@ namespace JSON_test
     {
         static void Main(string[] args)
         {
-            Car car = new Car();
-            car.hk = 10;
-            car.bla = 1000;
-            car.text = "asdflkasdfdsfg";
+            Savegame tmp = new Savegame();
+            tmp.gameName = "test";
+            tmp.location = "C:/test/test";
 
-            Car[] carAr = new Car[2];
-            carAr[0] = car;
-            carAr[1] = new Car(){ hk = 20, bla = 2, text = "nr2"};
+            Savegame[] savegames = new Savegame[10];
+            savegames[0] = tmp;
+            savegames[1] = new Savegame(){location = "whatever", gameName = "that game"};
             
-                string test = JsonConvert.SerializeObject(carAr, Formatting.Indented);
+                string test = JsonConvert.SerializeObject(savegames, Formatting.Indented);
             dynamic testing = JsonConvert.DeserializeObject(test);
             System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"config.JSON",test);
-            //Console.WriteLine(testing.hk);
             Console.ReadLine();
         }
     }
 
-    class Car
+    class Savegame
     {
-        public int hk { get; set; }
-        public int bla { get; set; }
-        public string text { get; set; }
+        public string location { get; set; }
+        public string gameName { get; set; }
+        //public string (save platform, steam, uplay, gog etc.)
     }
 }
